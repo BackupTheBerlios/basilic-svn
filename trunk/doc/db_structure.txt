@@ -1,0 +1,28 @@
+
+
+TM_USR_Users
+  usr_id
+  usr_login
+  usr_password
+  usr_fullname
+  usr_email
+  
+TM_USB_UserBases
+  usb_id
+  usr_id
+  usb_public
+  sch_id
+  usb_title
+  usb_description
+  
+TM_SCH_Schemas
+  sch_id
+  sch_title
+  sch_description
+  sch_schema
+  
+TM_RES_Ressources
+  res_id
+  usb_id
+  res_tags
+  res_value

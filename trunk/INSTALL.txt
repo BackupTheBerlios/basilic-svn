@@ -1,0 +1,15 @@
+Installation for busy guys
+--------------------------
+Installation will install engine in /usr/local
+$ sudo make install 
+$ cd /usr/local/basilic
+$ bin/mkinstance.sh 
+
+TODO++
+
+Installation, Full Story
+------------------------
+$ make install PREFIX=/path/to/dir
+
+
+

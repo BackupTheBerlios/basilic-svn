@@ -1,0 +1,11 @@
+A la création de l'utilisateur une chaine aléatoire est générée. Son MD5 est crypté avec le passsword de l'utilisateur est stocké dans secret_key.
+
+> usr=CreateUser
+> k=random_key
+> mk=md5(random_key)
+> usr.secret_key=crypt(mk, usr.password)
+
+Pour lire le champs values, il faut donc faire : 
+
+> key=uncrypt(usr.secret, usr.password)
+> values=uncrypt(xvalues, key)

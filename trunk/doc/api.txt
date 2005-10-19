@@ -1,0 +1,77 @@
+This documentation refers only to the bundled HTTP server.
+
+API
+===
+
+General syntax is :
+
+/[operation]/[parameters]
+
+- operation is the main verb of the syntax. Default (if none is provided) is "request". 
+ 
+- parameters syntax depends on operation.
+
+List of possible operations is :
+
+- request (default)
+- test
+- debug
+
+-> What about a "set" operation in order to use bookmarklets
+
+API for "test" operation
+------------------------
+/test : returns "OK" string, a newline, and the full copyright ; if configuration is good and server running. Never returns anything is server doesn't run.
+
+API for "debug" operation
+------------------------
+/debug : If server in debug mode (debug=1 in config file), this will return a debug page.
+
+API for "request" operation
+---------------------------
+/request/[userlogin]/[userbase]/["tags"/[tag1[+tag2[+tag3]]...]]/[format]
+
+All items are optional, but have to be furnished in this order.
+
+[item] means item is optional 
+"item" means item is the expected string (a marker)
+
+Result is always a string in given format. Default format is XML. 
+Encoding is set in the HTTP header. Default is utf-8.
+
+- userlogin : specifies that the request is only for given user
+- userbase : specifies that the request is restricted the userbase(s) named "userbase"
+- tags : if this marker is present, then next parameter has to be a tag or a set of tags
+- tag1 : if marker "tags" is set before, this is the tag used to constraint the request.
+- tag1+tag2+... : multiple tags have to be separated with an operator (like "+", which is interpreted as "AND" operator).
+
+
+Exemples:
+---------
+
+/odeckmyn/tags/python : 
+everything from odeckmyn, with tags python, in XML format.
+
+/odeckmyn/tags/python+win32 : 
+everything from odeckmyn, with tags python AND win32, in XML format.
+
+/odeckmyn/tags/python/rss : 
+everything from odeckmyn, with tags python, in RSS format.
+
+/odeckmyn/bookmarks/tags/python : 
+all entries in bookmarks userbase of odeckmyn, with tags python, in XML format.
+
+/bookmarks/tags/python : 
+all entries in public bookmarks userbase of all users, with tags python, in XML format.
+
+/tags/python : 
+all entries in all public userbases of all users, with tags python, in XML format.
+
+/odeckmyn :
+everything from odeckmyn, with any tags, in XML format.
+
+/odeckmyn/bookmarks :
+everything from odeckmyn in its bookmarks userbase, with any tags, in XML format.
+
+
+

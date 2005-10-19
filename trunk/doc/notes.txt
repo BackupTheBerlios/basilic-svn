@@ -1,0 +1,3 @@
+Infos about distribution, installation, GUI, etc... :
+- http://yergler.net/talks/desktopapps_uk/
+

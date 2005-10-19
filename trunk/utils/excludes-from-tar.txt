@@ -1,0 +1,9 @@
+CVS
+debian
+.cvsignore
+*.pyc
+TAGS
+.DS_Store
+*~
+.#*
+basilic-*-src.tgz

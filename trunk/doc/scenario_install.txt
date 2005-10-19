@@ -1,0 +1,43 @@
+Installation Scenarios
+----------------------
+----------------------
+
+Engine Install
+--------------
+
+Engine needs to be installed first.
+Say the we want to install basilic to 
+PREFIX=/usr/local/
+
+Installation directory is basilic-%(version)s. So, by default, basilic 1.0 will want to install at :
+
+/usr/local/basilic-1.0/
+
+This directory is stored into ENGINE_DIR variable
+
+An installation is the following steps :
+0/ make i18n
+1/ Recurse Copy skel/engine to ENGINE_DIR
+2/ Copy src/*.py to engine/lib/
+3/ Recurse Copy src/locales to engine/locales
+4/ Recurse Copy doc to engine/doc
+5/ Compile engine/lib/*.py
+6/ Recurse Copy skel/instance to ENGINE_DIR/instance-skel
+7/ Copy utils/mkinstance.py to ENGINE_DIR/bin
+
+Instance Making
+----------------
+An instance is created from the ENGINE_DIR. It's now current dir.
+
+To make a new instance, run bin/mkinstance.py
+
+0/ collect INSTANCE_DIR
+1/ mkdir INSTANCE_DIR
+2/ recurse copy instance-skel to INSTANCE_DIR
+3/ apply INSTANCE_DIR/start.sh.in into INSTANCE_DIR/start.sh
+4/ run INSTANCE_DIR/start.sh --make-defaults, this will write INSTANCE_DIR/etc files
+
+
+
+
+

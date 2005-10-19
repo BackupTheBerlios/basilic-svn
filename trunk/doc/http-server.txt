@@ -1,0 +1,24 @@
+Server runs on :
+
+http://hostname:port/
+
+hostname is computed by the server. Default port is 6666
+
+To test the operation of the server with default configuration file, use your internet browser with url :
+
+http://localhost:6666/test
+
+You should see a welcome message. If not, check the configuration, the read FAQ, then ask in mailing-list.
+
+Recommended installation tip
+----------------------------
+One should install basilic behind an apache proxy, preferably SSL, so that url becomes :
+
+https://basilic.mydomain.com/ or http://basilic.mydomain.com/ 
+
+This virtualhost is a stupid rewrite rule to :
+
+http://localhost:6666/
+
+TODO: Add an apache example file here.
+

@@ -1,0 +1,7 @@
+Dependencies:
+
+- Python 2.3+
+- Sqlite 3.x
+- 
+
+- GNU Gettext Framework installed (for msgmerge and msgfmt command used in i18n)

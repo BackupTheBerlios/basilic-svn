@@ -1,0 +1,11 @@
+#!/bin/sh
+ENGINE_DIR=%(engine_dir)s   
+PYTHON=%(python)s
+
+# Let's guess where this script is stored...
+case $0 in /*) SCRIPT_DIR=$0;; *) SCRIPT_DIR=`pwd`/$0;; esac
+# ... so that we know the instance's home !
+INSTANCE_DIR=`dirname $SCRIPT_DIR`
+
+$PYTHON $ENGINE_DIR/start.py --instance_home=$INSTANCE_DIR
+

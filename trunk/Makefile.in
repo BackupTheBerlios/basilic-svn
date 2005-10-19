@@ -1,0 +1,118 @@
+# BASILIC MAKEFILE
+# (c) Olivier Deckmyn 2005
+# License : GPL
+
+PREFIX=%(prefix)s
+
+# Variables
+NAME=basilic
+
+# Shell and various
+SHELL=/bin/sh
+PYTHON = %(python)s
+VERSION = $(shell cat version.txt)
+PACKAGE_NAME=$(NAME)-$(VERSION)
+ARCHIVE_NAME=$(PACKAGE_NAME).tgz
+SRC_ARCHIVE_NAME=$(PACKAGE_NAME)-src.tgz
+I18NDOMAIN=$(NAME)
+
+# Useful for installation
+ENGINE_DIR=$(PREFIX)/$(PACKAGE_NAME)
+
+# All directories
+BASEDIR = $(shell pwd)
+SRCDIR = $(BASEDIR)/src
+TMPDIR = $(BASEDIR)/../tmp-basilic
+I18NDIR = $(BASEDIR)/translations
+DOCDIR = $(BASEDIR)/doc
+UTILSDIR = $(BASEDIR)/utils
+LOCALEDIR= $(I18NDIR)/locales
+
+# Catalog of commands
+PO2MO=$(UTILSDIR)/po2mo.sh
+MSGMERGE=msgmerge
+MSGFMT=msgfmt
+MKDIR=mkdir -p
+CD=cd
+FIND=find
+RM=rm -f
+RMRF=rm -rf
+LN=ln -sfn
+CP=cp -v
+TAR=tar
+RECURSECP=$(CP) -RLv
+PYCOMPILE=$(PYTHON) $(UTILSDIR)/compilezpy.py
+
+# This one is caught when make is ran without args
+default:
+	@echo Project $(NAME) version $(VERSION)
+	@echo "No default make command"
+	
+clean:
+	@echo "*** Cleaning around"
+	@$(FIND) . \( -name '*~' -o -name '*.py[co]' -o -name '*.bak' \) -exec rm {} \; -print
+	@$(FIND) . \( -name '*.mo' \) -exec rm {} \; -print 
+	@$(RMRF) $(LOCALEDIR)/*
+#	$(RM) $(I18NDIR)/*.mo
+	
+test:
+	@echo "*** Launching unit tests"
+	$(CD) $(SRCDIR) && $(PYTHON) test.py
+	
+apidoc: clean
+	@echo "*** Refreshing API doc"
+	$(MKDIR) $(DOCDIR)/api
+	cd $(DOCDIR)/api && $(PYTHON) $(UTILSDIR)/py2htmldoc.py $(NAME) $(SRCDIR)
+
+i18n: clean
+	@echo "*** Building i18n files"
+	
+	@echo "** Updating i18n POT file"
+	$(PYTHON) $(UTILSDIR)/pygettext.py -a -v -d basilic -p $(I18NDIR) -w 78 $(SRCDIR)/*.py
+	
+	@echo "** Merging i18n translation files"
+	@$(FIND) $(I18NDIR) -name "*.po" -exec $(MSGMERGE) -o {} {} $(I18NDIR)/basilic.pot \;
+	
+	@echo "** Producing .mo files"
+	@$(MKDIR) $(LOCALEDIR)
+	@$(PO2MO) $(I18NDOMAIN) $(I18NDIR) $(LOCALEDIR)
+
+dist: i18n sdist
+
+sdist: clean apidoc
+	@echo "*** Building Source Distribution"
+	$(CD) $(BASEDIR)
+	$(RMRF) $(SRC_ARCHIVE_NAME)
+	$(RMRF) $(TMPDIR) && $(MKDIR) $(TMPDIR)
+	$(CD) $(TMPDIR) && $(LN) $(BASEDIR) $(NAME)
+	$(CD) $(TMPDIR) && $(TAR) cvzfh $(BASEDIR)/$(SRC_ARCHIVE_NAME) --exclude-from $(UTILSDIR)/excludes-from-tar.txt  $(NAME) 
+	$(CD) $(BASEDIR)
+	$(RMRF) $(TMPDIR)/$(NAME)
+
+install: i18n
+	@echo "*** Installing into $(INSTALL_DIR) ***"
+	$(MKDIR) $(ENGINE_DIR)
+	
+	@echo "** Copying core files **"
+	$(RECURSECP) skel/engine/* $(ENGINE_DIR)
+	$(RECURSECP) skel/instance/* $(ENGINE_DIR)/instance-skel
+	$(CP) utils/mkinstance.sh $(ENGINE_DIR)/bin
+	$(CP) src/*.py $(ENGINE_DIR)/lib/
+	
+	@echo "** Copying i18n files **"
+	$(RECURSECP) $(LOCALEDIR) $(ENGINE_DIR)/
+	
+	@echo "** Copying doc files **"
+	$(CP) doc/*.txt $(ENGINE_DIR)/doc/txt/
+	$(RECURSECP) doc/api/ $(ENGINE_DIR)/doc/html/
+	
+	@echo "** Compiling python files **"
+	cd $(ENGINE_DIR)/lib && $(PYCOMPILE)
+	
+	@echo "** Making the link **"
+	cd $(ENGINE_DIR)/.. && ln -sf $(PACKAGE_NAME) $(NAME)
+	
+
+
+
+
