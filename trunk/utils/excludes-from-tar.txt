@@ -1,6 +1,7 @@
 CVS
 debian
 .cvsignore
+.svn
 *.pyc
 TAGS
 .DS_Store

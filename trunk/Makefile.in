@@ -42,6 +42,7 @@ CP=cp -v
 TAR=tar
 RECURSECP=$(CP) -RLv
 PYCOMPILE=$(PYTHON) $(UTILSDIR)/compilezpy.py
+PYGETTEXT=$(PYTHON) $(UTILSDIR)/pygettext.py -a -v
 
 # This one is caught when make is ran without args
 default:
@@ -68,7 +69,7 @@ i18n: clean
 	@echo "*** Building i18n files"
 	
 	@echo "** Updating i18n POT file"
-	$(PYTHON) $(UTILSDIR)/pygettext.py -a -v -d basilic -p $(I18NDIR) -w 78 $(SRCDIR)/*.py
+	$(PYGETTEXT) -d basilic -p $(I18NDIR) -w 78 $(SRCDIR)/*.py
 	
 	@echo "** Merging i18n translation files"
 	@$(FIND) $(I18NDIR) -name "*.po" -exec $(MSGMERGE) -o {} {} $(I18NDIR)/basilic.pot \;
@@ -89,7 +90,7 @@ sdist: clean apidoc
 	$(CD) $(BASEDIR)
 	$(RMRF) $(TMPDIR)/$(NAME)
 
-install: i18n
+install: i18n apidoc
 	@echo "*** Installing into $(INSTALL_DIR) ***"
 	$(MKDIR) $(ENGINE_DIR)
 	

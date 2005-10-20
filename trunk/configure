@@ -18,7 +18,7 @@ TARGET="2.3.5"
 # sys.version) below in "best" to "worst" order, not including the
 # target version.  Up to six acceptable python versions are allowed.
 # Do not include the target version number in this list!
-ACCEPTABLE=""
+ACCEPTABLE="2.3.4 2.3.3 2.3.2"
 
 # provide the executable names for all the acceptable versions
 # (and the target version) below
@@ -217,7 +217,14 @@ if [ -z "$FOUND" ]; then
     get_python
 fi
 
+# Compute abspath for PREFIX
+D=`dirname "$PREFIX"`
+B=`basename "$PREFIX"`
+PREFIX="`cd \"$D\" 2>/dev/null && pwd || echo \"$D\"`/$B"
+
 # run the Python configurator
 cat "$HERE/Makefile.in" | "$FOUND" "$HERE/utils/apply.py" python="$FOUND" prefix="$PREFIX" > "$HERE/Makefile" 
 
+echo "Install base will be $PREFIX unless you run this script once again using --prefix option."
 echo "Run 'make install' to install now."
+echo "*** WARNING : on BSD systems, use gmake, not make ***"
