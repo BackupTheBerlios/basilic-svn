@@ -11,7 +11,7 @@ This code is not mine but Bram Cohen, famous for its BitTorrent protocol.
 
 Original place : http://bitconjurer.org/rijndael.py
 
-$Id$
+$Id: rijndael.py 10 2005-10-30 16:47:54Z odeckmyn $
 
 Original file is there :
 $URL$

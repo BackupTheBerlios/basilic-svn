@@ -8,7 +8,7 @@ http://basilic.berlios.de/
 Handles everything about the configuration file. Default settings stands
 here.
 
-$Id$
+$Id: configfile.py 10 2005-10-30 16:47:54Z odeckmyn $
 """
 # ______________________________________________________________________
 

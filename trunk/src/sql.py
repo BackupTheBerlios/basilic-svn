@@ -9,7 +9,7 @@ License : GPL.
 Handles everything about SQL.
 Only SQLLite is supported by now.
 
-$Id$
+$Id: sql.py 10 2005-10-30 16:47:54Z odeckmyn $
 Original file is there :
 $URL$
 """

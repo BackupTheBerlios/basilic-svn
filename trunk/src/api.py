@@ -9,7 +9,7 @@ Defines the official API and constants for use from external programs or
 plugins.
 See  doc/api.txt
 
-$Id$
+$Id: api.py 10 2005-10-30 16:47:54Z odeckmyn $
 """
 # ______________________________________________________________________
 

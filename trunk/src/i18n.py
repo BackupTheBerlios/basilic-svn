@@ -7,7 +7,7 @@ http://basilic.berlios.de/
 
 Handles everything about internationalisation of Basilic Project.
 
-$Id$
+$Id: i18n.py 10 2005-10-30 16:47:54Z odeckmyn $
 
 Original file is there :
 $URL$

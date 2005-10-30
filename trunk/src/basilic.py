@@ -7,7 +7,7 @@ http://basilic.berlios.de/
 
 Main Basilic module. Contains all the logic.
 
-$Id$
+$Id: basilic.py 10 2005-10-30 16:47:54Z odeckmyn $
 """
 # ______________________________________________________________________
 

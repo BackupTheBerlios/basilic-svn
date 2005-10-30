@@ -13,7 +13,7 @@ Tests have been written before implementing the code.
 Launch tests using Makefile :
 $ make test
 
-$Id$
+$Id: test.py 10 2005-10-30 16:47:54Z odeckmyn $
 Original file is there :
 $URL$
 """

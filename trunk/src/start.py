@@ -10,7 +10,7 @@ A simple launcher for basilic server
 Config file is read. Servers are launched.
 This file is not supposed to be modified by user nor admin.
 
-$Id$
+$Id: start.py 10 2005-10-30 16:47:54Z odeckmyn $
 Original file is there :
 $URL$
 """
