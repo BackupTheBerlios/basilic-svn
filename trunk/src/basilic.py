@@ -4,10 +4,14 @@ Part of Basilic Project.
 http://basilic.berlios.de/
 
 (c) 2004-2005 - Olivier Deckmyn
+License : GPL
 
 Main Basilic module. Contains all the logic.
 
 $Id: basilic.py 10 2005-10-30 16:47:54Z odeckmyn $
+
+Original file is there :
+$URL$
 """
 # ______________________________________________________________________
 

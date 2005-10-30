@@ -9,6 +9,7 @@ License : GPL.
 A very simple module for storing versions and copyright informations.
 
 $Id: version.py 10 2005-10-30 16:47:54Z odeckmyn $
+
 Original file is there :
 $URL$
 """

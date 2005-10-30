@@ -4,12 +4,16 @@ Part of Basilic Project.
 http://basilic.berlios.de/
 
 (c) 2004-2005 - Olivier Deckmyn
+License : GPL
 
 This modules decodes string sent to API into operations and parameters
 Also handles the logic of decoding requests and so
 See  doc/api.txt
 
 $Id: decoder.py 9 2005-10-30 16:30:05Z odeckmyn $
+
+Original file is there :
+$URL$
 """
 # ______________________________________________________________________
 

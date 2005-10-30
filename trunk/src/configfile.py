@@ -4,11 +4,15 @@ Part of Basilic Project.
 http://basilic.berlios.de/
 
 (c) 2004-2005 - Olivier Deckmyn
+License : GPL
 
 Handles everything about the configuration file. Default settings stands
 here.
 
 $Id: configfile.py 10 2005-10-30 16:47:54Z odeckmyn $
+
+Original file is there :
+$URL$
 """
 # ______________________________________________________________________
 

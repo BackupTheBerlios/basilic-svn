@@ -4,6 +4,7 @@ Part of Basilic Project.
 http://basilic.berlios.de/
 
 (c) 2004-2005 - Olivier Deckmyn
+License : GPL
 
 Handles everything about internationalisation of Basilic Project.
 
