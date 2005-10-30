@@ -1,13 +1,25 @@
-# This modules decodes string sent to API into operations and parameters
-# Also handles the logic of decoding requests and so
-# See  doc/api.txt
+# ______________________________________________________________________
+"""Module Decoder
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+
+This modules decodes string sent to API into operations and parameters
+Also handles the logic of decoding requests and so
+See  doc/api.txt
+
+$Id: BisonTokens.py,v 1.1.1.1 2000/07/03 20:59:37 jriehl Exp $
+"""
+# ______________________________________________________________________
+
 import basilic,api
 import string
 
-formats=basilic.formats 
+formats=basilic.formats
 operations=api.operations
 sql_operators=[
-    "AND",      
+    "AND",
     "NOT",
     "OR",
     ]
@@ -21,7 +33,7 @@ for op in operators:
     i+=1
 
 # --- DECODERS -------------------------------------------------------------
-    
+
 def decode_path(path, separator="/"):
     """Decode an URL path. Extracts the operation and the parameters (into
     a tuple)"""
