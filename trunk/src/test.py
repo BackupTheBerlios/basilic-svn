@@ -1,3 +1,26 @@
+# ______________________________________________________________________
+"""Basilic Test Cases.
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+License : GPL.
+
+All test cases for the Basilic Project.
+Each and every function of the framework is supposed to be tested here.
+Tests have been written before implementing the code.
+
+Launch tests using Makefile :
+$ make test
+
+$Id$
+Original file is there :
+$URL$
+"""
+# ______________________________________________________________________
+
+
+
 # Remove some warnings for the tests
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning, append=1)

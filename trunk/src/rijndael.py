@@ -1,4 +1,26 @@
+# ______________________________________________________________________
+"""Module Rijndael
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+License : GPL
+
+Python AES implementation. Pretty slow, but works.
+This code is not mine but Bram Cohen, famous for its BitTorrent protocol.
+
+Original place : http://bitconjurer.org/rijndael.py
+
+$Id$
+
+Original file is there :
+$URL$
 """
+# ______________________________________________________________________
+
+
+
+__doc__="""
 A pure python (slow) implementation of rijndael with a decent interface
 
 To include -

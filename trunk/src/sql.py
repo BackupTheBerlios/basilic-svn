@@ -1,3 +1,21 @@
+# ______________________________________________________________________
+"""SQL module 
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+License : GPL.
+
+Handles everything about SQL.
+Only SQLLite is supported by now.
+
+$Id$
+Original file is there :
+$URL$
+"""
+# ______________________________________________________________________
+
+
 import string
 from sqlutils import *
 

@@ -1,3 +1,18 @@
+# ______________________________________________________________________
+"""Basilic Main Module
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+
+Main Basilic module. Contains all the logic.
+
+$Id$
+"""
+# ______________________________________________________________________
+
+
+
 import sqlite, sql
 import random, string, md5, rijndael, base64
 import configfile, version

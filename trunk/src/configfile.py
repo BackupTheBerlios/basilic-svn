@@ -1,3 +1,17 @@
+# ______________________________________________________________________
+"""Config file handling module 
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+
+Handles everything about the configuration file. Default settings stands
+here.
+
+$Id$
+"""
+# ______________________________________________________________________
+
 import version
 from ConfigParser import SafeConfigParser
 import time, os.path, sys

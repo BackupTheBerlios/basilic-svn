@@ -1,10 +1,22 @@
-# ============================================================
-# A simple launcher for basilic server
-# Config file is read. Servers are launched.
-# This file is not supposed to be modified by user nor admin.
-# ============================================================
+# ______________________________________________________________________
+"""Basilic Starter.
+Part of Basilic Project.
+http://basilic.berlios.de/
 
-# Remove some warnings for the tests
+(c) 2004-2005 - Olivier Deckmyn
+License : GPL.
+
+A simple launcher for basilic server
+Config file is read. Servers are launched.
+This file is not supposed to be modified by user nor admin.
+
+$Id$
+Original file is there :
+$URL$
+"""
+# ______________________________________________________________________
+
+# Remove some warnings for the starter
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning, append=1)
 

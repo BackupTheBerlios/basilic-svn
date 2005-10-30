@@ -1,3 +1,21 @@
+# ______________________________________________________________________
+"""Module i18n
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+
+Handles everything about internationalisation of Basilic Project.
+
+$Id$
+
+Original file is there :
+$URL$
+"""
+# ______________________________________________________________________
+
+
+
 
 import os.path, sys, locale
 import basilic
@@ -28,5 +46,4 @@ def set_language(lang_code):
     if sys.modules.has_key('gettext'): # If gettext was installed
         print "Installing translation for domain=%s, localesDir=%s, language=%s" % (domain, localesDir, lang_code)
         gettext.translation(domain,localesDir,languages=[lang_code]).install()
-    
-    
+

@@ -1,6 +1,23 @@
+# ______________________________________________________________________
+"""SQL Utils module 
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+License : GPL.
+
+Smart SQL utility functions.
+Only SQLLite is supported by now.
+
+$Id$
+Original file is there :
+$URL$
+"""
+# ______________________________________________________________________
+
+
 import string
 import sql
-#from sql import TABLES, TABLE_DETAILS
 
 
 def ForgeCreateTable(trigram):

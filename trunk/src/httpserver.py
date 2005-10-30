@@ -1,11 +1,27 @@
+# ______________________________________________________________________
+"""Module HTTPServer
+Part of Basilic Project.
+http://basilic.berlios.de/
+
+(c) 2004-2005 - Olivier Deckmyn
+
+Implementation of the HTTP server for Basilic.
+Configuration don't stand here, but in config module.
+
+$Id$
+"""
+# ______________________________________________________________________
+
+
+
 import urllib, shutil, string
 from cStringIO import StringIO
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import decoder, api
-        
+
 
 class HTTPHandler(BaseHTTPRequestHandler):
-    
+
     def exec_test(self, stream, params=None):
         """Executes a "test" operation. Result is sent trough stream."""
         api.operation_test(self.server.basilic, stream, params)
@@ -40,18 +56,18 @@ class HTTPHandler(BaseHTTPRequestHandler):
     def do_HEAD(self):
         """Serves a HEAD request."""
         self._serve(send=0)
-    
+
     def do_GET(self):
         """Serve a GET request."""
         self._serve(send=1)
-    
+
 
 class Server:
-    
+
     def __init__(self, basilic):
         self.basilic=basilic
         self.server_config=basilic.config['http-server']
-        
+
     def run(self):
         server_address = (self.server_config["host"], self.server_config["port"])
         httpd = HTTPServer(server_address, HTTPHandler)
