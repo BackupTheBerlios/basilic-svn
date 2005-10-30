@@ -9,7 +9,7 @@ This modules decodes string sent to API into operations and parameters
 Also handles the logic of decoding requests and so
 See  doc/api.txt
 
-$Id: BisonTokens.py,v 1.1.1.1 2000/07/03 20:59:37 jriehl Exp $
+$Id$
 """
 # ______________________________________________________________________
 
