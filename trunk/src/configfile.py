@@ -1,5 +1,5 @@
 import version
-from ConfigParser import SafeConfigParser                               
+from ConfigParser import SafeConfigParser
 import time, os.path, sys
 
 default_config={
@@ -27,7 +27,7 @@ default_config={
 class dummy:
     pass
 
-from_directory=os.path.abspath(os.path.dirname(sys.modules[dummy.__module__].__file__)) 
+from_directory=os.path.abspath(os.path.dirname(sys.modules[dummy.__module__].__file__))
 
 
 def read_config(config_filename="default.cfg", override=default_config):
@@ -52,7 +52,7 @@ def read_config(config_filename="default.cfg", override=default_config):
                 value=c.get(section,key)
             result[section][key]=value
     return result
-    
+
 def write_config(config_filename, config=default_config):
     """Writes the config_filename with given config. If config is omitted, the
     default configuration structure is used. This is useful for writing the 
@@ -75,4 +75,3 @@ def write_config(config_filename, config=default_config):
     c.write(f)
     f.flush()
     f.close()
-    

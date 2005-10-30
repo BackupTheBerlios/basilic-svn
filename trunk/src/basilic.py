@@ -28,7 +28,7 @@ class Basilic:
     def __init__(self, config=None):
          """Using the given config file, opens the database at initialisation time"""
          if not config: # if no config object given, use the default config file
-             config=configfile.read_config() 
+             config=configfile.read_config()
          self.config=config
          self.db = sqlite.connect(config['global']['database'])
          self.version=version #version, the module
@@ -66,7 +66,7 @@ class Basilic:
             return None
         else:
             return result[0][0] # is usr_id
-            
+
     def getPublicUserBase(self, usb_title):
         """Returns usb_title if at least one public userbase exists with
         a title==usb_title"""
@@ -83,7 +83,7 @@ class Basilic:
         if len(result)==0:
             return None
         else:
-            return usb_title    
+            return usb_title
 
     def _createKey(self, password):
         """Returns the initial secret key, ciphered using password"""
@@ -147,7 +147,7 @@ class Basilic:
         """Returns the lists of available schemas and details"""
         return self.ExecSQL(sql.SelectSchemas)
 
-    
+
 class User:
 
     def __init__(self, basilic, uid, password):
@@ -198,6 +198,7 @@ class User:
         db.commit()
         usb_id=sql.getRowId(db,'usb')
         return UserBase(self, usb_id)
+
 
 
 class UserBase:

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Basilic configure script
-# Stolen to Zope, Orginal author : the Marvelous Andreas Jung
+# Stolen from Zope, Orginal author : the incredible Andreas Jung
 
 #####################################################################
 #                    BEGIN EDITABLE PARAMETERS                      #
