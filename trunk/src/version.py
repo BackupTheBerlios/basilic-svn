@@ -18,9 +18,10 @@ $URL$
 
 import i18n
 import time
+import os.path
 
 name="Basilic"
-version="0.2"
+version=open(os.path.join("..","version.txt")).read()
 copyright="2004-%d Olivier Deckmyn" % time.localtime()[0]
 project_url="http://basilic.berlios.de/"
 see_url=_("see %s") % project_url
