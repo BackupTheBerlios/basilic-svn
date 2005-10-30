@@ -9,7 +9,7 @@ This modules decodes string sent to API into operations and parameters
 Also handles the logic of decoding requests and so
 See  doc/api.txt
 
-$Id:$
+$Id$
 """
 # ______________________________________________________________________
 
