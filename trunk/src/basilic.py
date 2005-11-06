@@ -15,16 +15,16 @@ $URL$
 """
 # ______________________________________________________________________
 
+# Major globals
 
-
+# Imports
+import basilicglobals
 import sqlite, sql
 import random, string, md5, rijndael, base64
 import configfile, version
 import i18n
 
 __version__=version.version_string
-engine_home=None
-instance_home=None
 
 schemas_types=[
     'string',

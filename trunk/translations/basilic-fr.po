@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Basilic\n"
-"POT-Creation-Date: Thu Oct 20 09:31:20 2005\n"
+"POT-Creation-Date: Sun Nov  6 22:25:08 2005\n"
 "PO-Revision-Date: 2005-08-20 16:00+CEST\n"
 "Last-Translator: Olivier Deckmyn <olivier@deckmyn.org>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -19,54 +19,53 @@ msgstr ""
 "Domain: basilic\n"
 "X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
-#: /usr/home/odeckmyn/basilic/trunk/src/basilic.py:166
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:185
 msgid "User %s not found in database"
 msgstr "Impossible de trouver l'utilisateur %s dans la base"
 
-#: /usr/home/odeckmyn/basilic/trunk/src/basilic.py:221
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:241
 msgid "UserBase %s not found in database"
 msgstr "Impossible de trouver la UserBase %s dans la base"
 
-#: /usr/home/odeckmyn/basilic/trunk/src/basilic.py:266
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:286
 msgid "Schema %s not found in database"
 msgstr "Le schéma %s n'a pas été trouvé dans la base"
 
-#: /usr/home/odeckmyn/basilic/trunk/src/configfile.py:41
+#: /Users/odeckmyn/Work/basilic/src/configfile.py:59
 msgid "No config file found, generating a default one, here : %s."
 msgstr ""
 
-#: /usr/home/odeckmyn/basilic/trunk/src/httpserver.py:25
+#: /Users/odeckmyn/Work/basilic/src/httpserver.py:45
 msgid "Unknown operation (%s)"
 msgstr "Opération inconnue (%s)"
 
-#: /usr/home/odeckmyn/basilic/trunk/src/start.py:31
+#: /Users/odeckmyn/Work/basilic/src/start.py:44
 msgid "Starting %s..."
 msgstr "Démarrage de %s..."
 
-#: /usr/home/odeckmyn/basilic/trunk/src/start.py:33
+#: /Users/odeckmyn/Work/basilic/src/start.py:46
 msgid "Engine home : %s"
 msgstr ""
 
-#: /usr/home/odeckmyn/basilic/trunk/src/start.py:34
+#: /Users/odeckmyn/Work/basilic/src/start.py:47
 msgid "Instance home : %s"
 msgstr ""
 
-#: /usr/home/odeckmyn/basilic/trunk/src/start.py:35
+#: /Users/odeckmyn/Work/basilic/src/start.py:48
 msgid "Configuration file : %s"
 msgstr "Fichier de configuration : %s"
 
-#: /usr/home/odeckmyn/basilic/trunk/src/start.py:42
+#: /Users/odeckmyn/Work/basilic/src/start.py:55
 msgid "Initialising database : %s"
 msgstr "Initialisation de la base de données : %s"
 
-#: /usr/home/odeckmyn/basilic/trunk/src/start.py:47
+#: /Users/odeckmyn/Work/basilic/src/start.py:60
 msgid "Initialised. Starting servers."
 msgstr "Initialisé. Démarrage des serveurs."
 
-#: /usr/home/odeckmyn/basilic/trunk/src/start.py:59
+#: /Users/odeckmyn/Work/basilic/src/start.py:71
 msgid "Servers launched. Returning to hitchike in the galaxy."
 msgstr "Serveurs démarrés. Je retourne faire du stop dans la galaxie."
 
-#: /usr/home/odeckmyn/basilic/trunk/src/version.py:8
-msgid "see %s"
-msgstr "consulter %s"
+#~ msgid "see %s"
+#~ msgstr "consulter %s"

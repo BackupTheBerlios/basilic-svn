@@ -15,16 +15,14 @@ $URL$
 """
 # ______________________________________________________________________
 
-
-
-
 import os.path, sys, locale
+import basilicglobals
 import basilic
-
 
 # Some constants
 domain="basilic"
-localesDir = os.path.join(basilic.engine_home, 'locales')
+localesDir = os.path.join(basilicglobals.engine_home, 'locales')
+print localesDir
 
 # Trying to import gettext, if installed.
 try:
@@ -45,6 +43,6 @@ except ImportError:
 def set_language(lang_code):
     """Set the applications language."""
     if sys.modules.has_key('gettext'): # If gettext was installed
-        print "Installing translation for domain=%s, localesDir=%s, language=%s" % (domain, localesDir, lang_code)
+        #print "Installing translation for domain=%s, localesDir=%s, language=%s" % (domain, localesDir, lang_code)
         gettext.translation(domain,localesDir,languages=[lang_code]).install()
 

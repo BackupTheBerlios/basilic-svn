@@ -28,6 +28,11 @@ DOCDIR = $(BASEDIR)/doc
 UTILSDIR = $(BASEDIR)/utils
 LOCALEDIR= $(I18NDIR)/locales
 
+# Sandbox dirs
+SANDBOXDIR= $(BASEDIR)/sanbox
+SANDBOXENGINEDIR= $(SANDBOXDIR)/engine
+SANDBOXINSTANCEDIR= $(SANDBOXDIR)/instance
+
 # Catalog of commands
 PO2MO=$(UTILSDIR)/po2mo.sh
 MSGMERGE=msgmerge
@@ -51,14 +56,13 @@ default:
 	
 clean:
 	@echo "*** Cleaning around"
-	@$(FIND) . \( -name '*~' -o -name '*.py[co]' -o -name '*.bak' \) -exec rm {} \; -print
-	@$(FIND) . \( -name '*.mo' \) -exec rm {} \; -print 
+	@$(FIND) . \( -name '*~' -o -name '*.py[co]' -o -name '*.bak' \) -exec rm {} \;
+	@$(FIND) . \( -name '*.mo' \) -exec rm {} \; 
 	@$(RMRF) $(LOCALEDIR)/*
-#	$(RM) $(I18NDIR)/*.mo
 	
-test:
+test: sandbox
 	@echo "*** Launching unit tests"
-	$(CD) $(SRCDIR) && $(PYTHON) test.py
+	$(CD) $(SANDBOXENGINEDIR) && $(PYTHON) lib/test.py
 	
 apidoc: clean
 	@echo "*** Refreshing API doc"
@@ -69,7 +73,7 @@ i18n: clean
 	@echo "*** Building i18n files"
 	
 	@echo "** Updating i18n POT file"
-	$(PYGETTEXT) -d basilic -p $(I18NDIR) -w 78 $(SRCDIR)/*.py
+	@$(PYGETTEXT) -d basilic -p $(I18NDIR) -w 78 $(SRCDIR)/*.py
 	
 	@echo "** Merging i18n translation files"
 	@$(FIND) $(I18NDIR) -name "*.po" -exec $(MSGMERGE) -o {} {} $(I18NDIR)/basilic.pot \;
@@ -113,7 +117,19 @@ install: i18n apidoc
 	@echo "** Making the link **"
 	cd $(ENGINE_DIR)/.. && ln -sf $(PACKAGE_NAME) $(NAME)
 	
-
+sandbox: i18n
+	@echo "*** Making sandbox"
+	@echo "** Making a simple sandbox in order to test src inplace for developers"
+	@$(RMRF) $(SANDBOXDIR)
+	@$(MKDIR) $(SANDBOXDIR)
+	@$(MKDIR) $(SANDBOXINSTANCEDIR)
+	@$(MKDIR) $(SANDBOXENGINEDIR)
+	@echo "** Linking lib"
+	@$(LN) $(SRCDIR) $(SANDBOXENGINEDIR)/lib
+	@echo "** Linking locales"
+	@$(LN) $(LOCALEDIR) $(SANDBOXENGINEDIR)/
+	@echo "** Linking version"
+	@$(LN) $(BASEDIR)/version.txt $(SANDBOXENGINEDIR)/
 
 
 

@@ -26,8 +26,21 @@ $URL$
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning, append=1)
 
-import string
+import string, os, os.path, sys
 import unittest # Unit tests framework
+import basilicglobals
+
+#basilicglobals.engine_home=os.getcwd()
+basilicglobals.engine_home="."
+
+print "Assuming test are ran from %s" % basilicglobals.engine_home
+
+#sys.exit(1)
+
+
+import basilic
+
+
 from basilic import Basilic, User, UserBase, Schema, configfile
 from pprint import pprint
 import decoder
@@ -63,18 +76,18 @@ test_schemas={
                     'Collection of Internet Bookmarks',
                     [
                         {
-                          'name' : 'title',    
+                          'name' : 'title',
                           'label': 'Title of the ressource',
                           'type' : 'string',
                           'mandatory' : 1,
                         },
-                        { 
-                          'name' : 'url', 
+                        {
+                          'name' : 'url',
                           'label' : 'URL',
                           'type' : 'string',
                           'mandatory' : 1,
                         },
-                        { 
+                        {
                           'name' : 'comment',
                           'label' : 'Comment',
                           'type' : 'text',
@@ -140,13 +153,13 @@ test_schemas={
                           'type' : 'string',
                           'mandatory' : 0,
                         },
-                        { 
-                          'name' : 'password',  
+                        {
+                          'name' : 'password',
                           'label' : 'Password',
                           'type' : 'string',
                           'mandatory' : 0,
                         },
-                        { 
+                        {
                           'name' : 'comment',
                           'label' : 'Comment',
                           'type' : 'text',
@@ -221,7 +234,7 @@ class TestBasilicCipher(TestBasilic):
 
 
 class TestBasilicUser(TestBasilic):
-    
+
     def test_01_injection(self):
         list=self.basilic.getUsersDetails()
         self.assertEqual(len(list),len(test_users))
@@ -275,7 +288,7 @@ class TestBasilicI18N(TestBasilic):
     def test_01_loadcatalogs(self):
         pass
 
-class TestBasilicDecoders(TestBasilic): 
+class TestBasilicDecoders(TestBasilic):
 
     def test_01_decode_path(self):
         self.assertEqual(
@@ -316,13 +329,13 @@ class TestBasilicDecoders(TestBasilic):
         self.assertEqual(
             decoder.decode_path("/odeckmyn/tags/python+zope"),
             ("request",["odeckmyn","tags","python+zope"])
-        )        
+        )
 
         self.assertEqual(
             decoder.decode_path(""),
             ("request",[])
         )
-        
+
 
     def test_02_detectuserlogin(self):
         basilic=self.basilic
@@ -403,7 +416,7 @@ class TestBasilicDecoders(TestBasilic):
 
     def test_05_decode_request(self):
         basilic=self.basilic
-        
+
         tags=[("AND","python"),("AND","zope")] # Supposed translations of "python+zope"
 
         self.assertEqual(
@@ -450,7 +463,7 @@ if __name__ == '__main__':
         TestBasilicSchemas,
         TestBasilicUser,
         ]
-   
+
     for suite in suites:
         suite=unittest.makeSuite(suite)
         unittest.TextTestRunner(verbosity=2).run(suite)

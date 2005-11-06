@@ -15,16 +15,17 @@ $URL$
 """
 # ______________________________________________________________________
 
-
-import i18n
+# Imports
+# NB : This module must not import i18n in order to avoid chicken-eggs problem
 import time
 import os.path
 
 name="Basilic"
-version=open(os.path.join("..","version.txt")).read()
+#version=open(os.path.join("..","version.txt")).read()
+version=open("version.txt").read()
 copyright="2004-%d Olivier Deckmyn" % time.localtime()[0]
 project_url="http://basilic.berlios.de/"
-see_url=_("see %s") % project_url
+see_url="see %s" % project_url
 
 version_string="%s - v%s" % (name, version,)
 full_copyright="""%s version %s
