@@ -26,16 +26,12 @@ $URL$
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning, append=1)
 
-import string, os, os.path, sys
+import string, os.path, sys
 import unittest # Unit tests framework
 import basilicglobals
 
-#basilicglobals.engine_home=os.getcwd()
-basilicglobals.engine_home="."
-
-print "Assuming test are ran from %s" % basilicglobals.engine_home
-
-#sys.exit(1)
+# During test, because it is launched from sandbox/engine, engine_home is "."
+basilicglobals.engine_home=os.path.realpath('.')
 
 
 import basilic
