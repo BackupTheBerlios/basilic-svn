@@ -60,7 +60,7 @@ clean:
 	@$(FIND) . \( -name '*.mo' \) -exec rm {} \; 
 	@$(RMRF) $(LOCALEDIR)/*
 	
-test: sandbox
+test: quick-sandbox
 	@echo "*** Launching unit tests"
 	$(CD) $(SANDBOXENGINEDIR) && $(PYTHON) lib/test.py
 	
@@ -117,7 +117,7 @@ install: i18n apidoc
 	@echo "** Making the link **"
 	cd $(ENGINE_DIR)/.. && ln -sf $(PACKAGE_NAME) $(NAME)
 	
-sandbox: i18n
+quick-sandbox: 
 	@echo "*** Making sandbox"
 	@echo "** Making a simple sandbox in order to test src inplace for developers"
 	@$(RMRF) $(SANDBOXDIR)
@@ -130,6 +130,8 @@ sandbox: i18n
 	@$(LN) $(LOCALEDIR) $(SANDBOXENGINEDIR)/
 	@echo "** Linking version"
 	@$(LN) $(BASEDIR)/version.txt $(SANDBOXENGINEDIR)/
+
+sandbox: i18n quick-sandbox
 
 
 

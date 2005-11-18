@@ -33,13 +33,15 @@ import basilicglobals
 # During test, because it is launched from sandbox/engine, engine_home is "."
 basilicglobals.engine_home=os.path.realpath('.')
 
-
-import basilic
-
-
 from basilic import Basilic, User, UserBase, Schema, configfile
 from pprint import pprint
 import decoder
+import i18n
+
+
+# --------------------------------------------------------------------
+# ---- TESTS DATASETS 
+# --------------------------------------------------------------------
 
 default_login="user1"
 default_password="stupidpassword"
@@ -165,6 +167,11 @@ test_schemas={
                 ],
 }
 
+# --------------------------------------------------------------------
+# ---- USEFUL TESTS FUNCTIONS 
+# --------------------------------------------------------------------
+
+
 def inject_schemas(basilic, schemas):
     for sch_id in schemas.keys():
         schema=schemas[sch_id]
@@ -188,6 +195,9 @@ def inject_userbases(basilic, bases):
 #        basilic.
 
 
+# --------------------------------------------------------------------
+# ---- TESTS CASES
+# --------------------------------------------------------------------
 
 class TestBasilic(unittest.TestCase):
 
@@ -281,8 +291,27 @@ class TestBasilicSchemas(TestBasilic):
 
 class TestBasilicI18N(TestBasilic):
 
-    def test_01_loadcatalogs(self):
-        pass
+    def _test_loadcatalog(self, code):
+        success=True
+        try:
+            i18n.set_language(code)
+        except IOError:
+            success=False
+        return success
+
+    def test_01_loadcatalogs_fr(self):
+        success=self._test_loadcatalog('fr')
+        self.assertEqual(success, True) # French catalog is supposed to load
+
+    def test_02_loadcatalogs_en(self):
+        success=self._test_loadcatalog('en')
+        self.assertEqual(success, True) # English (Default) catalog is supposed to load
+
+    def test_03_loadcatalogs_dummy(self):
+        success=self._test_loadcatalog('xx')
+        self.assertEqual(success, False ) # Dummy catalog is not supposed to load
+
+
 
 class TestBasilicDecoders(TestBasilic):
 
