@@ -39,7 +39,6 @@ except ImportError:
     __builtin__.__dict__[ "_" ] = lambda x: x
 
 
-
 def set_language(lang_code):
     """Set the applications language."""
     if sys.modules.has_key('gettext'): # If gettext was installed

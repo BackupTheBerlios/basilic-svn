@@ -1,4 +1,5 @@
 CVS
+Makefile
 debian
 .cvsignore
 .svn
@@ -8,3 +9,5 @@ TAGS
 *~
 .#*
 basilic-*-src.tgz
+tmp
+sandbox

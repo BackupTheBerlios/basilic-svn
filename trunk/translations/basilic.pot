@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: Thu Nov 17 23:20:16 2005\n"
+"POT-Creation-Date: Fri Aug 18 08:29:41 2006\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,15 +15,16 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: /Users/odeckmyn/Work/basilic/src/basilic.py:185
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:205
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:216
 msgid "User %s not found in database"
 msgstr ""
 
-#: /Users/odeckmyn/Work/basilic/src/basilic.py:241
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:304
 msgid "UserBase %s not found in database"
 msgstr ""
 
-#: /Users/odeckmyn/Work/basilic/src/basilic.py:286
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:366
 msgid "Schema %s not found in database"
 msgstr ""
 

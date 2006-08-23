@@ -8,7 +8,7 @@ To test the operation of the server with default configuration file, use your in
 
 http://localhost:6666/test
 
-You should see a welcome message. If not, check the configuration, the read FAQ, then ask in mailing-list.
+You should see a welcome message. If not, check the configuration, then read FAQ, then ask in mailing-list.
 
 Recommended installation tip
 ----------------------------

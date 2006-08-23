@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Basilic\n"
-"POT-Creation-Date: Thu Nov 17 23:20:16 2005\n"
+"POT-Creation-Date: Fri Aug 18 08:29:41 2006\n"
 "PO-Revision-Date: 2005-08-20 16:00+CEST\n"
 "Last-Translator: Olivier Deckmyn <olivier@deckmyn.org>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -19,15 +19,16 @@ msgstr ""
 "Domain: basilic\n"
 "X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
-#: /Users/odeckmyn/Work/basilic/src/basilic.py:185
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:205
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:216
 msgid "User %s not found in database"
 msgstr "Impossible de trouver l'utilisateur %s dans la base"
 
-#: /Users/odeckmyn/Work/basilic/src/basilic.py:241
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:304
 msgid "UserBase %s not found in database"
 msgstr "Impossible de trouver la UserBase %s dans la base"
 
-#: /Users/odeckmyn/Work/basilic/src/basilic.py:286
+#: /Users/odeckmyn/Work/basilic/src/basilic.py:366
 msgid "Schema %s not found in database"
 msgstr "Le schéma %s n'a pas été trouvé dans la base"
 

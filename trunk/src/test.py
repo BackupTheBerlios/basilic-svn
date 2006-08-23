@@ -130,7 +130,7 @@ test_schemas={
                     ]
                 ],
 
-    'passwords':[   "Passwords",
+    'password':[   "Passwords",
                     "Secure password storage",
                     [
                         {
@@ -238,6 +238,12 @@ class TestBasilicCipher(TestBasilic):
         xkey=self.basilic._crypt(key, "xxx"+default_password)
         self.assertNotEqual(ciphered_key, xkey)
 
+    def test_01_crypt_decrypt_string(self):
+        user=self.basilic.connect(default_login, default_password)
+        s="This is my test string, using ascii chars. It's quite easy :-)"
+        cs=user.crypt_string(s)
+        ucs=user.decrypt_string(cs)
+        self.assertEqual(s,ucs)
 
 class TestBasilicUser(TestBasilic):
 
@@ -283,10 +289,45 @@ class TestBasilicUser(TestBasilic):
 class TestBasilicSchemas(TestBasilic):
 
     def test_01_schemas(self):
-        schemas=self.basilic.getSchemaIds()
-        for sch_id in schemas:
-            schema=Schema(self.basilic, sch_id)
-            print schema.schema_names
+        schemaIds=self.basilic.getSchemaIds()
+        schemaIds.sort()
+        self.assertEqual(schemaIds, ['bookmark', 'password', 'ssh'])
+
+        bookmark=self.basilic.getSchema('bookmark')
+        self.assertEqual(bookmark.uid,'bookmark')
+        self.assertEqual(bookmark.title,'Bookmark')
+        self.assertEqual(bookmark.description,'Collection of Internet Bookmarks')
+
+        fieldNames=bookmark.getFieldNames()
+        fieldNames.sort()
+        self.assertEqual(fieldNames,['comment','title','url'])
+
+        field=bookmark.getField('comment')
+        self.assertEqual(field['name'],'comment')
+        self.assertEqual(field['label'],'Comment')
+        self.assertEqual(field['type'],'text')
+        self.assertEqual(field['mandatory'],0)
+
+    def test_01_schemas_userbase(self):
+        user=self.basilic.connect(default_login, default_password)
+        usb_id=user.listUserBases()[0] # First userbase of default user
+        base=user.getUserBase(usb_id)
+        self.assertEqual(base.title, 'My Bookmarks')
+        self.assertEqual(base.description, 'All my Bookmarks')
+        self.assertEqual(base.schema.uid, 'bookmark')
+
+        schema=self.basilic.getSchema('bookmark')
+        self.assertEqual(base.schema, schema)
+
+
+class TestBasilicRessources(TestBasilic):
+
+    def test_01_create(self):
+        user=self.basilic.connect(default_login, default_password)
+        usb_id=user.listUserBases()[0] # First userbase of default user
+        base=user.getUserBase(usb_id) # We should have loaded 'My Bookmarks' base
+        res_id=base.createRessource('zope,python','xxxtest1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1xxxxxxtest1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1xxxxxxtest1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1xxxxxxtest1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1xxxxxxtest1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1xxxxxxtest1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1xxxxxxtest1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1xxxxxxtest1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1xxx')
+        print res_id
 
 
 class TestBasilicI18N(TestBasilic):
@@ -482,11 +523,12 @@ class TestBasilicDecoders(TestBasilic):
 if __name__ == '__main__':
 
     suites=[
-        TestBasilicI18N,
+#        TestBasilicI18N,
         TestBasilicCipher,
-        TestBasilicDecoders,
-        TestBasilicSchemas,
-        TestBasilicUser,
+#        TestBasilicDecoders,
+#        TestBasilicSchemas,
+#        TestBasilicRessources,
+#        TestBasilicUser,
         ]
 
     for suite in suites:

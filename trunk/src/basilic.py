@@ -26,7 +26,7 @@ import i18n
 
 __version__=version.version_string
 
-schemas_types=[
+schema_field_types=[
     'string',
     'int',
     'boolean',
@@ -52,6 +52,8 @@ class Basilic:
          self.db = sqlite.connect(config['global']['database'])
          self.version=version #version, the module
          i18n.set_language(config['global']['language'])
+         self._schemas_cache={} # A schema cache, to keep one instance in memory
+         self._userbase_cache={} # A userbase cache. XXX TODO : USE A FIFO HERE FOR MEMORY SAVE
 
     # End-User Actions
     def connect(self, login, password):
@@ -144,6 +146,22 @@ class Basilic:
         self.db.commit()
         return uid
 
+    def getSchema(self, uid):
+        """Return schema object for given schema uid"""
+        if not uid in self._schemas_cache.keys():
+            schema=Schema(self, uid)
+            self._schemas_cache[uid]=schema
+        return self._schemas_cache[uid]
+
+    def getUserBase(self, user, uid):
+        """Return user base object for given base uid"""
+        if not uid in self._userbase_cache.keys():
+            base=UserBase(user, uid)
+            self._userbase_cache[uid]=base
+        return self._userbase_cache[uid]
+
+
+
     # Internal methods
     def createDatabaseStructure(self):
         """Creates the database structure. """
@@ -176,9 +194,11 @@ class User:
         self.login=None
         self.fullname=None
         self.email=None
-        self.loadFromDB()
+        self._loadFromDB()
+        self._key=self._loadKeyFromDB()   # kind of a cache
+        self._mdkey=md5.md5(self._key).hexdigest()   # md5ized
 
-    def loadFromDB(self):
+    def _loadFromDB(self):
         """Loads all details of user from the DB"""
         x=self.basilic.ExecSQL(sql.SelectUser,(self.uid,))
         if len(x)==0:
@@ -188,6 +208,16 @@ class User:
         self.login=x[1]
         self.fullname=x[2]
         self.email=x[3]
+
+    def _loadKeyFromDB(self):
+        """Loads key from the DB"""
+        x=self.basilic.ExecSQL(sql.SelectUserKey,(self.uid,))
+        if len(x)==0:
+            raise _("User %s not found in database") % self.uid
+        else:
+            x=x[0]
+        key=self.basilic._decrypt(x[0], self.password)
+        return key
 
     def listUserBases(self):
         """Returns all base ids for this user"""
@@ -202,22 +232,55 @@ class User:
         bases=self.basilic.ExecSQL(sql.SelectUserBasesForUser,(self.uid))
         return bases
 
-    def connect(self, basename):
-        """Connects to given base"""
-        pass
+    def getUserBase(self, uid):
+        """Connects to given user base"""
+        return self.basilic.getUserBase(self,uid)
 
     def changePassword(self, password):
         """Set new password for user. Converts ciphered key."""
-        pass
+        # TODO : invalidate current cached uncrypted key
+        pass 
 
-    def createUserBase(self, title, isPublic, schema_name, description=""):
+    def createUserBase(self, title, isPublic, schema_uid, description=""):
         """Creates a new UserBase for the current user, given its details. Returns a UserBase object"""
         db=self.basilic.db
-        self.basilic.ExecSQL(sql.InsertUserBase, (self.uid, isPublic, schema_name, title, description) )
+        self.basilic.ExecSQL(sql.InsertUserBase, (self.uid, isPublic, schema_uid, title, description) )
         db.commit()
         usb_id=sql.getRowId(db,'usb')
         return UserBase(self, usb_id)
 
+    def crypt_string(self, s):
+        """Crypt given string, using current user password. Result is base64 
+        version of resulting binary string"""
+        l=len(s)
+        s2=[] # split s into s2, made of 16 chars
+        for i in range(0,l/16+1):
+            ss=(s[16*i:16*(i+1)]).ljust(16) #substring
+            s2.append(ss)
+
+        cs2=[] # is ciphered s2
+        for x in s2:
+            y=rijndael.encrypt(self._mdkey,x) # crypt string, remove trailing \n
+            cs2.append(y)
+
+        cs=string.join(cs2,'') # cs is a string, joined from cs2
+        cs=base64.encodestring(cs)   # base64 yourself
+        return cs
+
+    def decrypt_string(self, s):
+        """Decrypt given string, using current user password"""
+        s=base64.decodestring(s) # s was base64ed
+        l=len(s)
+        s2=[]
+        for i in range(0,l/16):
+            x=s[i*16:(i+1)*16]
+            x=rijndael.decrypt(self._mdkey,x)
+            s2.append(x) # uncipher
+
+        us=string.join(s2,'') # rejoin all
+        us=us.rstrip()
+        return us
+        
 
 
 class UserBase:
@@ -230,25 +293,29 @@ class UserBase:
         self.title=None
         self.isPublic=None
         self.schema=None
-        self.schema_name=None
+        self.schema_uid=None
         self.description=None
-        self.loadFromDB()
+        self._loadFromDB()
 
-    def loadFromDB(self):
+    def _loadFromDB(self):
         """Loads all details of userbase from the DB"""
         x=self.basilic.ExecSQL(sql.SelectUserBaseDetails,(self.uid,))
         if len(x)==0:
             raise _("UserBase %s not found in database") % self.uid
         else:
             x=x[0]
-        self.title=x[1]
+
+        # Fields : usb_id, usr_id, usb_public, sch_id, usb_title, usb_description 
+
         self.isPublic=x[2]
-        self.schema_name=x[3]
-        self.description=x[4]
+        self.schema_uid=x[3]
+        self.title=x[4]
+        self.schema=self.basilic.getSchema(self.schema_uid)
+        self.description=x[5]
 
     def getSchema(self):
         """Returns schema of the base"""
-        pass
+        return self.schema
 
     def getRessourceIds(self,tags=None):
         """Returns the list of ressources Ids for current user. If tags is provided, the list is limited to the items matching given tags."""
@@ -257,6 +324,17 @@ class UserBase:
     def getRessource(self, uid):
         """Returns the value for id. Content is unciphered using current user password"""
         pass
+
+    def createRessource(self, tags, value):
+        """Creates a new ressource, cipher the value and insert in DB. Returns 
+        ressource UID"""
+        c_value=self.user.crypt_string(str(value))
+        c2=self.user.decrypt_string(c_value)
+        db=self.basilic.db #res_id, usb_id, res_tags, res_value
+        self.basilic.ExecSQL(sql.InsertRessource, (self.uid, tags, c_value) )
+        db.commit()
+        usb_id=sql.getRowId(db,'usb')
+        
 
 
 # This is stolen from mxTools
@@ -277,9 +355,11 @@ class Schema:
         self.title=None
         self.description=None
         self.schema=None
-        self.loadFromDB()
+        self.fieldNames=[] # Names of fields, ordered
+        self.fields={}     # Fields (structured)
+        self._loadFromDB()
 
-    def loadFromDB(self):
+    def _loadFromDB(self):
         """Loads all details of schema from the DB"""
         x=self.basilic.ExecSQL(sql.SelectSchemaDetails,(self.uid,))
         if len(x)==0:
@@ -288,15 +368,33 @@ class Schema:
             x=x[0]
         self.title=x[1]
         self.description=x[2]
-        self.schema=self.interpret(x[3])
-        self.schema_names=[]
-        for item in self.schema:
-            self.schema_names.append(item['name'])
+        self.schema=self._interpret(x[3])
+        self._digestSchema()
 
-    def interpret(self, schema_string):
+    def _digestSchema(self):
+        """Gets all informations from schema structure, and inject into fields
+        structure"""
+        self.fieldNames=[]
+        self.fields={}
+        for field in self.schema:
+            fieldName=field['name']
+            self.fieldNames.append(fieldName)
+            self.fields[fieldName]=field
+
+    def _interpret(self, schema_string):
         """Interprets the schema string into a schema object. Based on python eval. 
         In case of any error in interpreting, None is returned."""
         try:
             return reval(schema_string)
         except:
             return None
+
+    def getFieldNames(self):
+        """Returns all fields names of current schema, as a list of strings"""
+        return self.fieldNames
+    
+    def getField(self,fieldName):
+        """Returns the field of given name"""
+        return self.fields[fieldName]
+        
+        

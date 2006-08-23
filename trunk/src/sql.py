@@ -57,10 +57,10 @@ TABLE_DETAILS={
             ],
 
     "res" : [
-             ("res_id",         "integer",  "PRIMARY KEY"),
-             ("usb_id",         "integer",  "NOT NULL"),
-             ("res_tags",       "varchar",  ""),
-             ("res_value",      "varchar",  "NOT NULL"),
+             ("res_id",         "integer",  "PRIMARY KEY"),  # Unique id
+             ("usb_id",         "integer",  "NOT NULL"),     # Corresponding UserBase
+             ("res_tags",       "varchar",  ""),             # Tags used, comma separated
+             ("res_value",      "varchar",  "NOT NULL"),     # Ciphered dictionary, according to schema
             ],
 
 }
@@ -131,4 +131,14 @@ SelectSchemaDetails="SELECT sch_id, sch_title, sch_description, sch_schema FROM 
 SelectSchemas="SELECT sch_id, sch_title, sch_description, sch_schema FROM %s ORDER BY sch_id" % TABLES['sch']
 
 SelectSchemaIds="SELECT sch_id FROM %s ORDER BY sch_id" % TABLES['sch']
+
+# RESSOURCE TABLE
+
+InsertRessource="INSERT INTO %s (res_id, usb_id, res_tags, res_value) VALUES (?,?,?,?)" % TABLES['res']
+
+SelectRessourceDetails="SELECT res_id, usb_id, res_tags, res_value FROM %s WHERE res_id=?" % TABLES['res']
+
+SelectRessources="SELECT res_id, usb_id, res_tags, res_value FROM %s ORDER BY res_id" % TABLES['res']
+
+SelectRessourceIds="SELECT res_id FROM %s ORDER BY res_id" % TABLES['res']
 

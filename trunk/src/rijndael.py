@@ -7,7 +7,8 @@ http://basilic.berlios.de/
 License : GPL
 
 Python AES implementation. Pretty slow, but works.
-This code is not mine but Bram Cohen, famous for its BitTorrent protocol.
+This code is not mine but written by Bram Cohen, famous for its BitTorrent 
+protocol.
 
 Original place : http://bitconjurer.org/rijndael.py
 
